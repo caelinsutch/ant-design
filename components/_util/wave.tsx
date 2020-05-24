@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import TransitionEvents from '@ant-design/css-animation/lib/Event';
+import { createRef } from 'react';
 import raf from './raf';
 import { ConfigConsumer, ConfigConsumerProps, CSPConfig } from '../config-provider';
 
@@ -40,8 +41,10 @@ export default class Wave extends React.Component<{ insertExtraNode?: boolean }>
 
   private csp?: CSPConfig;
 
+  private wrapper = createRef<HTMLElement>();
+
   componentDidMount() {
-    const node = findDOMNode(this) as HTMLElement;
+    const node = this.wrapper.current;
     if (!node || node.nodeType !== 1) {
       return;
     }
